@@ -20,10 +20,13 @@
   <!-- tailwind and DaisyUI setup -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- font awesome setup -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-  <!-- login page design -->
+  <!-- login page design ------------------------------ -->
   <section class="w-11/12 mx-auto max-w-[500px] my-3">
     <!-- upper div-->
     <div class="text-center">
@@ -64,6 +67,23 @@
     </div>
 
   </section>
+
+  <!-- main page --------------------------------------- -->
+
+  <header>
+    <!-- navbar -->
+    <div class="navbar bg-base-100 shadow-sm w-full grid grid-flow-row sm:flex justify-between">
+      <div class="flex justify-center items-center">
+        <img class="w-8 h-8" src="./assets/github-logo.png" alt="">
+        <a class="btn btn-ghost text-xl">GitHub Issues Tracker</a>
+      </div>
+      <div class="flex gap-2">
+        <!-- <i class="fa-solid fa-magnifying-glass absolute top-1/2"></i> -->
+        <input type="text" placeholder="Search Issues..." class="input input-bordered w-24 md:w-auto" />
+        <button class="btn btn-primary">+ New Issue</button>
+      </div>
+    </div>
+  </header>
 </body>
 
 </html>
