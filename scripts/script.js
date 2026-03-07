@@ -1,4 +1,3 @@
-// login related codes 
 fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
   .then(res => res.json())
   .then(data => displayIssues(data.data));
@@ -8,6 +7,15 @@ const displayIssues = (issues) => {
   const cardSection = document.getElementById('card-section');
   cardSection.innerHTML = "";
   for (const issue of issues) {
+
+    const date = issue.createdAt.split('T')[0];
+    
+
+    const createBadge = (array) => {
+    const BadgeHtml = array.map(badge => `<span class="flex badge badge-soft badge-warning">${badge}</span>`);
+    return BadgeHtml.join(" ");
+    }
+
 
     const statusImage = issue.status.toLowerCase() === "open" 
     ? "./assets/Open-Status.png" 
@@ -21,7 +29,7 @@ const displayIssues = (issues) => {
 
               <div class="flex justify-between">
                 <img src="${statusImage}" alt="">
-                  <div class="badge badge-info">${issue.status}</div>
+                  <div class="badge badge-info">${issue.priority}</div>
               </div>
             
               <div>
@@ -29,16 +37,15 @@ const displayIssues = (issues) => {
                   <p class="text-[#64748B90]">${issue.description}</p>
               </div>
 
-            <div>
-                <span class="badge badge-md badge-warning">Most Popular</span>
-                <span class="badge badge-md badge-warning">Most Popular</span>
+            <div class="flex gap-1">
+                ${createBadge(issue.labels)}
             </div>
 
             <hr>
 
             <div>
                 <p>#<span>${issue.id}</span> by <span>${issue.author}</span></p>
-                <p>${issue.createdAt}</p>
+                <p>${date}</p>
             </div>
             
           </div>
@@ -50,7 +57,7 @@ const displayIssues = (issues) => {
   }
 }
 
-
+// login related codes 
 
 // const username = document.getElementById('username');
 // const password = document.getElementById('password');
