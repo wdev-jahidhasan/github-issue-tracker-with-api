@@ -1,12 +1,53 @@
 // login related codes 
 fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-.then(res => res.json())
-.then(data => displayIssues(data.data));
+  .then(res => res.json())
+  .then(data => displayIssues(data.data));
 
 const displayIssues = (issues) => {
-    for (const issue of issues) {
-        
-    }
+
+  const cardSection = document.getElementById('card-section');
+  cardSection.innerHTML = "";
+  for (const issue of issues) {
+
+    const statusImage = issue.status.toLowerCase() === "open" 
+    ? "./assets/Open-Status.png" 
+    : "./assets/Closed- Status .png";
+
+
+    const singleCardDiv = document.createElement('div');
+    singleCardDiv.classList.add('card', 'w-72', 'bg-base-100', 'shadow-sm');
+    singleCardDiv.innerHTML = `
+          <div class="card-body space-y-5">
+
+              <div class="flex justify-between">
+                <img src="${statusImage}" alt="">
+                  <div class="badge badge-info">${issue.status}</div>
+              </div>
+            
+              <div>
+                  <h2 class="text-xl font-bold">${issue.title}</h2>
+                  <p class="text-[#64748B90]">${issue.description}</p>
+              </div>
+
+            <div>
+                <span class="badge badge-md badge-warning">Most Popular</span>
+                <span class="badge badge-md badge-warning">Most Popular</span>
+            </div>
+
+            <hr>
+
+            <div>
+                <p>#<span>${issue.id}</span> by <span>${issue.author}</span></p>
+                <p>${issue.createdAt}</p>
+            </div>
+            
+          </div>
+        </div>
+        `
+
+
+    cardSection.append(singleCardDiv);
+  }
 }
 
 
