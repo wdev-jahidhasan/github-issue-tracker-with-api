@@ -118,6 +118,26 @@ const cardCount = () => {
   initialCount.innerText = totalCards + " Issues";
 };
 
+// tab wise card and count showing --------------------------------------------
+
+const activeBtn = () => {
+    const allBtn = document.getElementById('all');
+    const openBtn = document.getElementById('open');
+    const closedBtn = document.getElementById('closed');
+    
+    openBtn.addEventListener('click', () => {
+      fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+      .then(res => res.json())
+      .then(data => {
+
+        const openIssues = data.data.filter(issue => issue.status.toLowerCase() === "open");
+        displayIssues(openIssues);
+      });
+    });
+};
+
+activeBtn();
+
 // login related codes 
 
 // const username = document.getElementById('username');
