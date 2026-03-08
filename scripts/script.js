@@ -98,6 +98,8 @@ const displayIssues = (issues) => {
         `
     cardSection.append(singleCardDiv);
   }
+
+  cardCount();
 };
 
 loadIssues();
@@ -115,3 +117,12 @@ loadIssues();
 //     alert('Wrong Credentials. Please, enter right username and password');
 //   }
 // });
+
+
+// card count
+const cardCount = () => {
+  let initialCount = document.getElementById('card-count');
+  const cardSection = document.getElementById('card-section');
+  const totalCards = cardSection.children.length;
+  initialCount.innerText = totalCards + " Issues";
+};
