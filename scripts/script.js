@@ -124,6 +124,10 @@ const activeBtn = () => {
     const allBtn = document.getElementById('all');
     const openBtn = document.getElementById('open');
     const closedBtn = document.getElementById('closed');
+
+    allBtn.addEventListener('click', () => {
+      loadIssues();
+    });
     
     openBtn.addEventListener('click', () => {
       fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
@@ -134,7 +138,18 @@ const activeBtn = () => {
         displayIssues(openIssues);
       });
     });
-};
+
+    closedBtn.addEventListener('click', () => {
+      fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+      .then(res => res.json())
+      .then(data => {
+
+        const closedIssues = data.data.filter(issue => issue.status.toLowerCase() === "closed");
+        displayIssues(closedIssues);
+      });
+    });
+  };
+
 
 activeBtn();
 
