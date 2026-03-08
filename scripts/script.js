@@ -1,55 +1,20 @@
-// all issues
-
+// loadIssues function
 const loadIssues = () => {
     fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
   .then(res => res.json())
   .then(data => displayIssues(data.data));
 };
 
+// loadModal function
 const loadModal = (id) => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
   
   fetch(url)
   .then(res => res.json())
   .then(data => displayModal(data.data));
-}
+};
 
-const displayModal = (info) => {
-  const createBadge = (array) => {
-    const BadgeHtml = array.map(badge => `<span class="flex badge badge-soft badge-warning">${badge}</span>`);
-    return BadgeHtml.join(" ");
-    }
-
-    const date = info.createdAt.split('T')[0];
-
-  const modalBox = document.getElementById('modal-section');
-  modalBox.innerHTML = `
-     
-            <h3 class="text-lg font-bold my-4">${info.title}</h3>
-            <p class= "text-gray-500">Opened by ${info.assignee ? info.assignee : "No Name Found"}</p>
-            <p class= "text-gray-500">${date}</p>
-            <div class="flex gap-1 my-5">
-              ${createBadge(info.labels)}
-            </div>
-            <p class="py-4 text-gray-500">${info.description}</p>
-
-            <div class="bg-[#64748B10] p-5 flex justify-between">
-              <div>
-                <p class="text-gray-500">Assignee:</p>
-                <p class="font-semibold text-lg">${info.assignee ? info.assignee : "No Name Found"}</p>
-              </div>
-              <div>
-                <p class="text-gray-500">Priority:</p>
-                <div class="badge badge-info">${info.priority}</div>
-              </div>
-            </div>
-          
-  `;
-  document.getElementById('word_modal').showModal();
-    
-}
-
-
+// displayIssues function
 const displayIssues = (issues) => {
 
   const cardSection = document.getElementById('card-section');
@@ -68,6 +33,11 @@ const displayIssues = (issues) => {
     : "./assets/Closed- Status .png";
 
     const singleCardDiv = document.createElement('div');
+    if(issue.status.toLowerCase() === "open"){
+        singleCardDiv.classList.add('border-t-4', 'border-green-500');
+    }else{
+      singleCardDiv.classList.add('border-t-4', 'border-purple-500');
+    }
     singleCardDiv.classList.add('card', 'w-72', 'bg-base-100', 'shadow-sm');
     singleCardDiv.innerHTML = `
           <div onclick="loadModal(${issue.id})" class="card-body space-y-5">
@@ -104,6 +74,50 @@ const displayIssues = (issues) => {
 
 loadIssues();
 
+// displayModal function
+const displayModal = (info) => {
+  const createBadge = (array) => {
+    const BadgeHtml = array.map(badge => `<span class="flex badge badge-soft badge-warning">${badge}</span>`);
+    return BadgeHtml.join(" ");
+    }
+
+    const date = info.createdAt.split('T')[0];
+
+  const modalBox = document.getElementById('modal-section');
+  modalBox.innerHTML = `
+     
+            <h3 class="text-lg font-bold my-4">${info.title}</h3>
+            <p class= "text-gray-500">Opened by ${info.assignee ? info.assignee : "No Name Found"}</p>
+            <p class= "text-gray-500">${date}</p>
+            <div class="flex gap-1 my-5">
+              ${createBadge(info.labels)}
+            </div>
+            <p class="py-4 text-gray-500">${info.description}</p>
+
+            <div class="bg-[#64748B10] p-5 flex justify-between">
+              <div>
+                <p class="text-gray-500">Assignee:</p>
+                <p class="font-semibold text-lg">${info.assignee ? info.assignee : "No Name Found"}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">Priority:</p>
+                <div class="badge badge-info">${info.priority}</div>
+              </div>
+            </div>
+          
+  `;
+  document.getElementById('word_modal').showModal();
+    
+};
+
+// card count
+const cardCount = () => {
+  let initialCount = document.getElementById('card-count');
+  const cardSection = document.getElementById('card-section');
+  const totalCards = cardSection.children.length;
+  initialCount.innerText = totalCards + " Issues";
+};
+
 // login related codes 
 
 // const username = document.getElementById('username');
@@ -118,11 +132,3 @@ loadIssues();
 //   }
 // });
 
-
-// card count
-const cardCount = () => {
-  let initialCount = document.getElementById('card-count');
-  const cardSection = document.getElementById('card-section');
-  const totalCards = cardSection.children.length;
-  initialCount.innerText = totalCards + " Issues";
-};
