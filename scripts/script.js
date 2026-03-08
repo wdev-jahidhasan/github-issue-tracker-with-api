@@ -118,7 +118,7 @@ const cardCount = () => {
   initialCount.innerText = totalCards + " Issues";
 };
 
-// tab wise card and count showing --------------------------------------------
+// tab wise card and count and button showing
 
 const activeBtn = () => {
     const allBtn = document.getElementById('all');
@@ -126,10 +126,18 @@ const activeBtn = () => {
     const closedBtn = document.getElementById('closed');
 
     allBtn.addEventListener('click', () => {
+      allBtn.classList.remove('btn-soft');
+      openBtn.classList.add('btn-soft');
+      closedBtn.classList.add('btn-soft');
+
       loadIssues();
     });
     
     openBtn.addEventListener('click', () => {
+      openBtn.classList.remove('btn-soft');
+      allBtn.classList.add('btn-soft');
+      closedBtn.classList.add('btn-soft');
+
       fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
       .then(res => res.json())
       .then(data => {
@@ -140,6 +148,10 @@ const activeBtn = () => {
     });
 
     closedBtn.addEventListener('click', () => {
+      closedBtn.classList.remove('btn-soft');
+      allBtn.classList.add('btn-soft');
+      openBtn.classList.add('btn-soft');
+
       fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
       .then(res => res.json())
       .then(data => {
