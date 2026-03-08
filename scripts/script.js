@@ -1,8 +1,23 @@
+// loading spinner related codes 
+const loadingSpinner = (status) => {
+  if(status == true){
+      document.getElementById('spinner').classList.remove('hidden');
+      document.getElementById('card-section').classList.add('hidden');
+  }else{
+      document.getElementById('card-section').classList.remove('hidden');
+      document.getElementById('spinner').classList.add('hidden');
+  }
+};
+
 // loadIssues function
 const loadIssues = () => {
-    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+  loadingSpinner(true);
+  fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
   .then(res => res.json())
-  .then(data => displayIssues(data.data));
+  .then(data => {
+    displayIssues(data.data);
+    loadingSpinner(false);
+  });
 };
 
 // loadModal function
@@ -119,7 +134,6 @@ const cardCount = () => {
 };
 
 // tab wise card and count and button showing
-
 const activeBtn = () => {
     const allBtn = document.getElementById('all');
     const openBtn = document.getElementById('open');
@@ -134,6 +148,8 @@ const activeBtn = () => {
     });
     
     openBtn.addEventListener('click', () => {
+      loadingSpinner(true);
+
       openBtn.classList.remove('btn-soft');
       allBtn.classList.add('btn-soft');
       closedBtn.classList.add('btn-soft');
@@ -144,10 +160,13 @@ const activeBtn = () => {
 
         const openIssues = data.data.filter(issue => issue.status.toLowerCase() === "open");
         displayIssues(openIssues);
+        loadingSpinner(false);
       });
     });
 
     closedBtn.addEventListener('click', () => {
+      loadingSpinner(true);
+
       closedBtn.classList.remove('btn-soft');
       allBtn.classList.add('btn-soft');
       openBtn.classList.add('btn-soft');
@@ -158,11 +177,10 @@ const activeBtn = () => {
 
         const closedIssues = data.data.filter(issue => issue.status.toLowerCase() === "closed");
         displayIssues(closedIssues);
+        loadingSpinner(false);
       });
     });
   };
-
-
 activeBtn();
 
 // login related codes 
