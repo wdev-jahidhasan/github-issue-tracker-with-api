@@ -28,9 +28,9 @@
 </head>
 
 <body>
-  <!-- login page design ------------------------------ -->
+  <!-- login page design -->
 
-  <!-- <section id="login-page" class="w-11/12 mx-auto max-w-[500px] my-3">
+  <section id="login-page" class="w-11/12 mx-auto max-w-[500px] my-3">
 
 
     <div class="text-center">
@@ -68,12 +68,12 @@
       </div>
     </div>
 
-  </section> -->
+  </section>
 
-  <!-- main page --------------------------------------- -->
+  <!-- main page -->
 
-  <section id="main-page" class="bg-[#64748B10]">
-    <!-- ei section e class hisebe hidden dile initially full main page hidden thakbe -->
+  <section id="main-page" class="bg-[#64748B10] hidden">
+
     <header>
       <!-- navbar -->
       <div
@@ -83,7 +83,8 @@
           <a class="btn btn-ghost text-xl">GitHub Issues Tracker</a>
         </div>
         <div class="flex justify-between md:flex gap-3">
-          <input id="input-search" type="text" placeholder="Search Issues..." class="input input-bordered w-52 md:w-auto" />
+          <input id="input-search" type="text" placeholder="Search Issues..."
+            class="input input-bordered w-52 md:w-auto" />
           <button id="btn-search" class="btn btn-primary">Search</button>
         </div>
       </div>
@@ -125,17 +126,18 @@
       </section>
 
       <!-- loading spinner section -->
-       <section id="spinner" class="flex justify-center items-center py-3 bg-yellow-50 hidden">
+      <section id="spinner" class="flex justify-center items-center py-3 bg-yellow-50 hidden">
         <span class="loading loading-dots loading-xl"></span>
-       </section>
+      </section>
 
       <!-- dynamic card section -->
-      <section id="card-section" class="bg-yellow-50 rounded-md p-5 grid grid-cols-1 md:grid-cols-4 gap-3 justify-items-center"></section>
+      <section id="card-section"
+        class="bg-yellow-50 rounded-md p-5 grid grid-cols-1 md:grid-cols-4 gap-3 justify-items-center"></section>
 
       <!-- modal section -->
       <dialog id="word_modal" class="modal modal-middle">
         <div class="modal-box">
-           <section id="modal-section"></section>
+          <section id="modal-section"></section>
 
           <div class="modal-action">
             <form method="dialog">

@@ -1,11 +1,11 @@
 // loading spinner related codes 
 const loadingSpinner = (status) => {
-  if(status === true){
-      document.getElementById('spinner').classList.remove('hidden');
-      document.getElementById('card-section').classList.add('hidden');
-  }else{
-      document.getElementById('card-section').classList.remove('hidden');
-      document.getElementById('spinner').classList.add('hidden');
+  if (status === true) {
+    document.getElementById('spinner').classList.remove('hidden');
+    document.getElementById('card-section').classList.add('hidden');
+  } else {
+    document.getElementById('card-section').classList.remove('hidden');
+    document.getElementById('spinner').classList.add('hidden');
   }
 };
 
@@ -13,20 +13,20 @@ const loadingSpinner = (status) => {
 const loadIssues = () => {
   loadingSpinner(true);
   fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-  .then(res => res.json())
-  .then(data => {
-    displayIssues(data.data);
-    loadingSpinner(false);
-  });
+    .then(res => res.json())
+    .then(data => {
+      displayIssues(data.data);
+      loadingSpinner(false);
+    });
 };
 
 // loadModal function
 const loadModal = (id) => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
-  
+
   fetch(url)
-  .then(res => res.json())
-  .then(data => displayModal(data.data));
+    .then(res => res.json())
+    .then(data => displayModal(data.data));
 };
 
 // displayIssues function
@@ -39,18 +39,18 @@ const displayIssues = (issues) => {
     const date = issue.createdAt.split('T')[0];
 
     const createBadge = (array) => {
-    const BadgeHtml = array.map(badge => `<span class="flex badge badge-soft badge-warning">${badge}</span>`);
-    return BadgeHtml.join(" ");
+      const BadgeHtml = array.map(badge => `<span class="flex badge badge-soft badge-warning">${badge}</span>`);
+      return BadgeHtml.join(" ");
     }
 
-    const statusImage = issue.status.toLowerCase() === "open" 
-    ? "./assets/Open-Status.png" 
-    : "./assets/Closed- Status .png";
+    const statusImage = issue.status.toLowerCase() === "open"
+      ? "./assets/Open-Status.png"
+      : "./assets/Closed- Status .png";
 
     const singleCardDiv = document.createElement('div');
-    if(issue.status.toLowerCase() === "open"){
-        singleCardDiv.classList.add('border-t-4', 'border-green-500');
-    }else{
+    if (issue.status.toLowerCase() === "open") {
+      singleCardDiv.classList.add('border-t-4', 'border-green-500');
+    } else {
       singleCardDiv.classList.add('border-t-4', 'border-purple-500');
     }
     singleCardDiv.classList.add('card', 'w-72', 'bg-base-100', 'shadow-sm');
@@ -94,9 +94,9 @@ const displayModal = (info) => {
   const createBadge = (array) => {
     const BadgeHtml = array.map(badge => `<span class="flex badge badge-soft badge-warning">${badge}</span>`);
     return BadgeHtml.join(" ");
-    }
+  }
 
-    const date = info.createdAt.split('T')[0];
+  const date = info.createdAt.split('T')[0];
 
   const modalBox = document.getElementById('modal-section');
   modalBox.innerHTML = `
@@ -122,7 +122,7 @@ const displayModal = (info) => {
           
   `;
   document.getElementById('word_modal').showModal();
-    
+
 };
 
 // card count
@@ -135,26 +135,26 @@ const cardCount = () => {
 
 // tab wise card and count and button showing
 const activeBtn = () => {
-    const allBtn = document.getElementById('all');
-    const openBtn = document.getElementById('open');
-    const closedBtn = document.getElementById('closed');
+  const allBtn = document.getElementById('all');
+  const openBtn = document.getElementById('open');
+  const closedBtn = document.getElementById('closed');
 
-    allBtn.addEventListener('click', () => {
-      allBtn.classList.remove('btn-soft');
-      openBtn.classList.add('btn-soft');
-      closedBtn.classList.add('btn-soft');
+  allBtn.addEventListener('click', () => {
+    allBtn.classList.remove('btn-soft');
+    openBtn.classList.add('btn-soft');
+    closedBtn.classList.add('btn-soft');
 
-      loadIssues();
-    });
-    
-    openBtn.addEventListener('click', () => {
-      loadingSpinner(true);
+    loadIssues();
+  });
 
-      openBtn.classList.remove('btn-soft');
-      allBtn.classList.add('btn-soft');
-      closedBtn.classList.add('btn-soft');
+  openBtn.addEventListener('click', () => {
+    loadingSpinner(true);
 
-      fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+    openBtn.classList.remove('btn-soft');
+    allBtn.classList.add('btn-soft');
+    closedBtn.classList.add('btn-soft');
+
+    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
       .then(res => res.json())
       .then(data => {
 
@@ -162,16 +162,16 @@ const activeBtn = () => {
         displayIssues(openIssues);
         loadingSpinner(false);
       });
-    });
+  });
 
-    closedBtn.addEventListener('click', () => {
-      loadingSpinner(true);
+  closedBtn.addEventListener('click', () => {
+    loadingSpinner(true);
 
-      closedBtn.classList.remove('btn-soft');
-      allBtn.classList.add('btn-soft');
-      openBtn.classList.add('btn-soft');
+    closedBtn.classList.remove('btn-soft');
+    allBtn.classList.add('btn-soft');
+    openBtn.classList.add('btn-soft');
 
-      fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
       .then(res => res.json())
       .then(data => {
 
@@ -179,8 +179,8 @@ const activeBtn = () => {
         displayIssues(closedIssues);
         loadingSpinner(false);
       });
-    });
-  };
+  });
+};
 activeBtn();
 
 // search functionality 
@@ -191,25 +191,23 @@ document.getElementById('btn-search').addEventListener('click', () => {
   console.log(searchValue);
 
   fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-  .then(res => res.json())
-  .then(data => {
+    .then(res => res.json())
+    .then(data => {
       const allWords = data.data;
       const filterWords = allWords.filter(word => word.title.toLowerCase().includes(searchValue));
       displayIssues(filterWords);
-  });
+    });
 });
 
 // login related codes 
-
-// const username = document.getElementById('username');
-// const password = document.getElementById('password');
-// const loginBtn = document.getElementById('login');
-// loginBtn.addEventListener('click', function() {
-//   if(username.value === 'admin' && password.value === 'admin123'){
-//     document.getElementById('main-page').classList.remove('hidden');
-//     document.getElementById('login-page').classList.add('hidden');
-//   }else{
-//     alert('Wrong Credentials. Please, enter right username and password');
-//   }
-// });
-
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const loginBtn = document.getElementById('login');
+loginBtn.addEventListener('click', function () {
+  if (username.value === 'admin' && password.value === 'admin123') {
+    document.getElementById('main-page').classList.remove('hidden');
+    document.getElementById('login-page').classList.add('hidden');
+  } else {
+    alert('Wrong Credentials. Please, enter right username and password');
+  }
+});
