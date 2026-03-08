@@ -1,6 +1,6 @@
 // loading spinner related codes 
 const loadingSpinner = (status) => {
-  if(status == true){
+  if(status === true){
       document.getElementById('spinner').classList.remove('hidden');
       document.getElementById('card-section').classList.add('hidden');
   }else{
@@ -182,6 +182,22 @@ const activeBtn = () => {
     });
   };
 activeBtn();
+
+// search functionality 
+
+document.getElementById('btn-search').addEventListener('click', () => {
+  const input = document.getElementById('input-search');
+  const searchValue = input.value.trim().toLowerCase();
+  console.log(searchValue);
+
+  fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+  .then(res => res.json())
+  .then(data => {
+      const allWords = data.data;
+      const filterWords = allWords.filter(word => word.title.toLowerCase().includes(searchValue));
+      displayIssues(filterWords);
+  });
+});
 
 // login related codes 
 
