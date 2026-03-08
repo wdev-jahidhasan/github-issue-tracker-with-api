@@ -87,7 +87,7 @@ const displayModal = (info) => {
   modalBox.innerHTML = `
      
             <h3 class="text-lg font-bold my-4">${info.title}</h3>
-            <p class= "text-gray-500">Opened by ${info.assignee ? info.assignee : "No Name Found"}</p>
+            <p class= "text-gray-500">Opened by ${info.author ? info.author : "No Name Found"}</p>
             <p class= "text-gray-500">${date}</p>
             <div class="flex gap-1 my-5">
               ${createBadge(info.labels)}
